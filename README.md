@@ -1,2 +1,2 @@
-# python
+# Gary's python
 python learning
