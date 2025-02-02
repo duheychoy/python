@@ -8,7 +8,7 @@ print("The current working directory is:", current_directory)
 
 --------------------------------------------------------------------
 
-***change to a different drive and directory***
+***change to a different drive and directory***?????
 
 import os
 
@@ -21,7 +21,7 @@ try:
 except FileNotFoundError:
     print(f"The directory {new_directory} does not exist.")
 
------------------------------------------
+-----------------------------------------?????
 
 from pathlib import Path
 
@@ -35,3 +35,26 @@ try:
     print("Current working directory:", Path.cwd())
 except FileNotFoundError:
     print(f"The directory {new_directory} does not exist.")
+
+---------------------------
+
+# Specify the path to your .py file
+file_path = 'D:/python/04-string_number.py'
+
+try:
+    # Open the file in read mode
+    with open(file_path, 'r', encoding='utf - 8') as file:
+        # Read the entire content of the file
+        content = file.read()
+        # Print the content
+        print(content)
+except FileNotFoundError:
+    print(f"The file {file_path} was not found.")
+except Exception as e:
+    print(f"An error occurred: {e}")
+
+--------------------------------
+
+type hello.py
+
+--------------------------------------
