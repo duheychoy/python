@@ -1,0 +1,5 @@
+python3 --version
+
+*remark
+
+print("some characters")
