@@ -1,0 +1,37 @@
+***Get the current working directory***
+
+from pathlib import Path
+
+# Get the current working directory
+current_directory = Path.cwd()
+print("The current working directory is:", current_directory)
+
+--------------------------------------------------------------------
+
+***change to a different drive and directory***
+
+import os
+
+# Change to the specified drive and directory
+new_directory = r"D:\python"
+try:
+    os.chdir(new_directory)
+    print(f"Successfully changed the directory to {new_directory}")
+    print("Current working directory:", os.getcwd())
+except FileNotFoundError:
+    print(f"The directory {new_directory} does not exist.")
+
+-----------------------------------------
+
+from pathlib import Path
+
+# Define the new directory
+new_directory = Path(r"D:\python")
+
+try:
+    # Change the current working directory
+    os.chdir(new_directory)
+    print(f"Successfully changed the directory to {new_directory}")
+    print("Current working directory:", Path.cwd())
+except FileNotFoundError:
+    print(f"The directory {new_directory} does not exist.")
