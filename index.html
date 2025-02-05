@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>網址管理</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>網址管理</h1>
+    <form id="urlForm">
+        <label for="url">網址:</label>
+        <input type="text" id="url" required>
+        <label for="description">說明:</label>
+        <input type="text" id="description" required>
+        <input type="submit" value="新增">
+    </form>
+    <table id="urlTable">
+        <thead>
+            <tr>
+                <th>網址</th>
+                <th>說明</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- 表格內容將通過 JavaScript 動態添加 -->
+        </tbody>
+    </table>
+
+    <script>
+        // 從本地存儲中獲取數據
+        const storedUrls = localStorage.getItem('urls');
+        const urls = storedUrls ? JSON.parse(storedUrls) : [];
+
+        // 渲染表格
+        function renderTable() {
+            const tableBody = document.querySelector('#urlTable tbody');
+            tableBody.innerHTML = '';
+
+            urls.forEach((url, index) => {
+                const row = document.createElement('tr');
+                const urlCell = document.createElement('td');
+                const descriptionCell = document.createElement('td');
+                const actionCell = document.createElement('td');
+
+                urlCell.textContent = url.url;
+                descriptionCell.textContent = url.description;
+
+                const deleteButton = document.createElement('button');
+                deleteButton.textContent = '刪除';
+                deleteButton.addEventListener('click', () => {
+                    urls.splice(index, 1);
+                    saveUrlsToLocalStorage();
+                    renderTable();
+                });
+
+                actionCell.appendChild(deleteButton);
+
+                row.appendChild(urlCell);
+                row.appendChild(descriptionCell);
+                row.appendChild(actionCell);
+
+                tableBody.appendChild(row);
+            });
+        }
+
+        // 保存數據到本地存儲
+        function saveUrlsToLocalStorage() {
+            localStorage.setItem('urls', JSON.stringify(urls));
+        }
+
+        // 表單提交事件
+        const form = document.getElementById('urlForm');
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
+
+            const urlInput = document.getElementById('url');
+            const descriptionInput = document.getElementById('description');
+
+            const newUrl = {
+                url: urlInput.value,
+                description: descriptionInput.value
+            };
+
+            urls.push(newUrl);
+            saveUrlsToLocalStorage();
+            renderTable();
+
+            urlInput.value = '';
+            descriptionInput.value = '';
+        });
+
+        // 初始化表格
+        renderTable();
+    </script>
+</body>
+
+</html>
